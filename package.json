@@ -17,9 +17,22 @@
     "lint:fix": "biome check . --write",
     "prepare": "husky"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zirkelc/commonjs-shim.git"
+  },
+  "keywords": [
+    "cjs",
+    "commonjs",
+    "es",
+    "esm",
+    "shim",
+    "require",
+    "__filename",
+    "__dirname"
+  ],
+  "author": "Chris Cook",
+  "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@total-typescript/tsconfig": "^1.0.4",
