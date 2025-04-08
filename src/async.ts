@@ -22,4 +22,28 @@ export const commonjsShim = async (importMetaUrl: string) => {
   globalThis.__dirname = dirname(globalThis.__filename);
 };
 
-export default commonjsShim;
+/**
+ * CommonJS Shim banner
+ * Use this banner to inject the CommonJS Shim into bundled code.
+ *
+ * {@link https://esbuild.github.io/api/#banner | esbuild banner}
+ *
+ * @example
+ * import { commonjsBanner } from 'commonjs-shim/async';
+ * import * as esbuild from 'esbuild';
+ *
+ * await esbuild.build({
+ *   entryPoints: ['app.js'],
+ *   banner: {
+ *     js: commonjsBanner,
+ *   },
+ *   outfile: 'out.js',
+ * })
+ */
+export const commonjsBanner = `
+/* banner start: commonjs-shim */
+globalThis.require = (await import("node:module")).createRequire(import.meta.url);
+globalThis.__filename = (await import("node:url")).fileURLToPath(import.meta.url);
+globalThis.__dirname = (await import("node:path")).dirname(__filename);
+/* banner end: commonjs-shim */
+`;

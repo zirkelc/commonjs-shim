@@ -10,7 +10,7 @@ Shim for the `require`, `__filename`, and `__dirname` globals in Node.js.
 The `require`, `__filename`, and `__dirname` globals do not exist in ES modules (ESM).
 If you or any of your dependencies use these globals, you will encounter an error like this:
 
-```js
+```
 Error: Dynamic require of "crypto" is not supported
 ```
 
@@ -26,10 +26,14 @@ pnpm add commonjs-shim
 
 ## Usage
 
-This package provides both a sync and async version of this shim.
-Use the async version if you encounter naming collisions like `SyntaxError: Identifier 'createRequire' has already been declared`.
+This package provides both a synchronous and asynchronous version of this shim.
+Use the asynchronous version if you encounter naming collisions like `SyntaxError: Identifier 'createRequire' has already been declared`.
 
-### Sync
+## Shim
+
+If you want to make the globals available in your own code, you can do so by importing the `commonjsShim` function and calling it with the `import.meta.url` argument.
+
+### Synchronous
 
 ```ts
 import { commonjsShim } from 'commonjs-shim';
@@ -43,6 +47,24 @@ commonjsShim(import.meta.url);
 import { commonjsShim } from 'commonjs-shim/async';
 
 await commonjsShim(import.meta.url);
+```
+
+## Banner
+
+If you want to inject the shim into your bundled code, you can use the `commonjsBanner` template string.
+For example, esbuild provides a [`banner` option](https://esbuild.github.io/api/#banner) that can be used to insert an arbitrary string at the beginning of generated JavaScript file:
+
+```ts
+import { commonjsBanner } from 'commonjs-shim'; // or 'commonjs-shim/async'
+import * as esbuild from 'esbuild';
+
+await esbuild.build({
+  entryPoints: ['app.js'],
+  banner: {
+    js: commonjsBanner,
+  },
+  outfile: 'out.js',
+})
 ```
 
 ## License

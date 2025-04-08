@@ -1,9 +1,15 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+
+beforeEach(() => {
+  vi.stubGlobal('require', undefined);
+  vi.stubGlobal('__filename', undefined);
+  vi.stubGlobal('__dirname', undefined);
+});
 
 describe('async', () => {
-  test('should set up globals', async () => {
+  test('should set up globals from function', async () => {
     const importMetaUrl = import.meta.url;
     const expectedFilename = fileURLToPath(importMetaUrl);
     const expectedDirname = path.dirname(expectedFilename);

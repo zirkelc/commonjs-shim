@@ -3,7 +3,7 @@ import path from 'node:path';
 import url from 'node:url';
 
 /**
- * The `require` function and `__filename` and `__dirname` globals are not available in ES modules (ESM).
+ * CommonJS Shim function
  * This function creates the `require`, `__filename`, and `__dirname` in the global scope.
  *
  * @example
@@ -20,4 +20,28 @@ export const commonjsShim = (importMetaUrl: string) => {
   globalThis.__dirname = path.dirname(__filename);
 };
 
-export default commonjsShim;
+/**
+ * CommonJS Shim banner
+ * Use this banner to inject the CommonJS Shim into bundled code.
+ *
+ * {@link https://esbuild.github.io/api/#banner | esbuild banner}
+ *
+ * @example
+ * import { commonjsBanner } from 'commonjs-shim';
+ * import * as esbuild from 'esbuild';
+ *
+ * await esbuild.build({
+ *   entryPoints: ['app.js'],
+ *   banner: {
+ *     js: commonjsBanner,
+ *   },
+ *   outfile: 'out.js',
+ * })
+ */
+export const commonjsBanner = `
+/* banner start: commonjs-shim */
+globalThis.require = createRequire(import.meta.url);
+globalThis.__filename = url.fileURLToPath(import.meta.url);
+globalThis.__dirname = path.dirname(__filename);
+/* banner end: commonjs-shim */
+`;
