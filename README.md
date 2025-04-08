@@ -1,3 +1,6 @@
+[![CI](https://github.com/zirkelc/commonjs-shim/actions/workflows/ci.yml/badge.svg)](https://github.com/zirkelc/commonjs-shim/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/dt/commonjs-shim?label=commonjs-shim)](https://www.npmjs.com/package/commonjs-shim)
+
 # CommonJS Shim
 
 Shim for the `require`, `__filename`, and `__dirname` globals in Node.js.
