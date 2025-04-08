@@ -1,19 +1,17 @@
 {
-  "name": "single-package-typescript",
+  "name": "commonjs-shim",
   "version": "1.0.0",
   "description": "",
   "packageManager": "pnpm@9.0.0",
-  "module": "dist/index.js",
+  "module": "dist/sync.js",
   "type": "module",
   "files": ["dist"],
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
+    ".": "./dist/sync.js",
+    "./async": "./dist/async.js"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup",
     "test": "vitest",
     "lint:check": "biome check .",
     "lint:fix": "biome check . --write",
@@ -25,6 +23,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@total-typescript/tsconfig": "^1.0.4",
+    "@types/node": "^22.14.0",
     "husky": "^9.1.6",
     "tsup": "^8.3.0",
     "typescript": "^5.6.3",
