@@ -1,6 +1,6 @@
 {
   "name": "commonjs-shim",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "packageManager": "pnpm@9.0.0",
   "module": "dist/sync.js",
